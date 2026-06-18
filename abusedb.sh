@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
 PLIK=/tmp/abuseidb.txt
 MT_PLIK=/tmp/abuseidb.rsc
