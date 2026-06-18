@@ -2,6 +2,8 @@
 
 PLIK=/tmp/abuseidb.txt
 MT_PLIK=/tmp/abuseidb.rsc
+SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/heads/main/abuseipdb-s100-14d.ipv4"
+# https://github.com/borestad/blocklist-abuseipdb - [1d,3d,7d,14d,30d,60d,90d,120d,180d,365d,all]
 
 rm -rf $PLIK
 rm -rf $MT_PLIK
