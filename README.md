@@ -1,28 +1,29 @@
-# AbuseIPDB with mikrotik
-Simple script to work abuseipdb.com with Mikrotik over SSH
+# AbuseIPDB with RouterOS
+A minimum-viable script to import an AbuseIPDB mirror list to a RouterOS target, over SSH, using keys.
 
 ## Usage
 
-Add script to cron and run everyday (in free plan you have 5 api get every day)
+Add script to cron and run periodically. Modify period of database file as needed.
+```
+SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/heads/main/abuseipdb-s100-14d.ipv4"
+# https://github.com/borestad/blocklist-abuseipdb - [1d,3d,7d,14d,30d,60d,90d,120d,180d,365d,all]
+```
 
-My crontab entry (run at 6:00, 12:00, 18:00, 23:00):
-0 6,12,18,23 * * * /srv/mt/abusedb.sh >/dev/null 2>&1
-
-You'll also need firewall rule (in my case i have 1ip per ppp session so i add all-ppp in in-interface):  
-
-`/ip firewall filter`
-
-`add action=drop chain=input in-interface=all-ppp log=yes log-prefix=abuseidb src-address-list=abuseidb`
-
-Or add to filter raw - block input and output traffic:
-
-`/ip firewall raw`
-
-`add action=drop chain=prerouting comment="Drop annything coming from abuseidb" log=yes log-prefix=abuseipdb-raw src-address-list=abuseidb`
-
-`add action=drop chain=prerouting comment="Drop annything going to abuseidb" dst-address-list=abuseidb log=yes log-prefix=abuseipdb-raw-out`
+Optional: Adjust the firewall list entry timeout.
+`echo "add list=abuseidb address=$ip timeout=2d" >> $MT_PLIK`
 
 
-## TODO
-- Change login from user/pass to keys
-- Add Mikrotik credentials to variables
+Set up firewall rules as appropriate using this list. Typical uses are 
+`/ip/firewall/filter/add action=drop chain=input in-interface=WAN1 src-add-ress-list=abuseipdb`
+
+`/ip/firewall/raw/add action=drop chain=prerouting src-address-list=abuseidb`
+`/ip/firewall/raw/add action=drop chain=prerouting dst-address-list=abuseidb`
+
+## Keyfile
+
+We're only going to cover the basics here, assuming the target audience has general topical experience.
+
+- Generate a key using ssh-keygen or use your existing key.
+- Give the contents of the .pub file to RouterOS; System, Users, SSH Keys. You can upload and import the file (allowing password-protected keyfile use) or just copy-paste the text of a passwordless file into a New entry.
+- Update the script variable to the path of your not-.pub file.
+  
