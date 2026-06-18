@@ -15,6 +15,7 @@ echo "/ip firewall address-list remove [/ip firewall address-list find list=abus
 while IFS= read -r ip
 do
   ip="${ip%%#*}"
+  ip="${ip#"${ip%%[![:space:]]*}"}"
 echo "add list=abuseidb address=$ip timeout=2d" >> $MT_PLIK
 done < "$PLIK"
 
