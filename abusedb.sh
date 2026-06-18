@@ -2,6 +2,7 @@
 
 PLIK=/tmp/abuseidb.txt
 MT_PLIK=/tmp/abuseidb.rsc
+MT_SSH_ID=/path/to/ssh/id_rsa
 
 rm -rf $PLIK
 rm -rf $MT_PLIK
