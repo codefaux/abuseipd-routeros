@@ -17,6 +17,8 @@ do
   ip="${ip%%#*}"
   ip="${ip#"${ip%%[![:space:]]*}"}"
   ip="${ip%"${ip##*[![:space:]]}"}"
+
+  [[ -z $ip ]] && continue
 echo "add list=abuseidb address=$ip timeout=2d" >> $MT_PLIK
 done < "$PLIK"
 
