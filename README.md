@@ -20,6 +20,7 @@ Set up firewall rules as appropriate using this list. Typical uses are
 `/ip/firewall/filter/add action=drop chain=input in-interface=WAN1 src-add-ress-list=abuseipdb`
 
 `/ip/firewall/raw/add action=drop chain=prerouting src-address-list=abuseidb`
+
 `/ip/firewall/raw/add action=drop chain=prerouting dst-address-list=abuseidb`
 
 ## Keyfile
