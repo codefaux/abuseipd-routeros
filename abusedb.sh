@@ -17,5 +17,5 @@ do
 echo "add list=abuseidb address=$ip timeout=2d" >> $MT_PLIK
 done < "$PLIK"
 
-sshpass -p "$MT_PASSWORD" scp -P $MT_PORT -r $MT_PLIK $MT_LOGIN@$MT_HOST:/abuseidb.rsc
+sshpass -p "$MT_PASSWORD" scp -P $MT_PORT $MT_PLIK $MT_LOGIN@$MT_HOST:/abuseidb.rsc
 sshpass -p "$MT_PASSWORD" ssh -o StrictHostKeyChecking=no -p $MT_PORT -l $MT_LOGIN $MT_HOST /import abuseidb.rsc
