@@ -3,6 +3,7 @@ set -euo pipefail
 
 PLIK=/tmp/abuseidb.txt
 MT_PLIK=/tmp/abuseidb.rsc
+MT_SSH_ID=/path/to/ssh/id_rsa
 
 rm -rf $PLIK
 rm -rf $MT_PLIK
@@ -22,5 +23,5 @@ do
 echo "add list=abuseidb address=$ip timeout=2d" >> $MT_PLIK
 done < "$PLIK"
 
-sshpass -p "$MT_PASSWORD" scp -P $MT_PORT -r $MT_PLIK $MT_LOGIN@$MT_HOST:/abuseidb.rsc
-sshpass -p "$MT_PASSWORD" ssh -o StrictHostKeyChecking=no -oHostKeyAlgorithms=+ssh-dss -p $MT_PORT -l $MT_LOGIN $MT_HOST /import abuseidb.rsc
+scp -i $MT_SSH_ID -P $MT_PORT $MT_PLIK $MT_LOGIN@$MT_HOST:/abuseidb.rsc
+ssh -i $MT_SSH_ID -o StrictHostKeyChecking=no -p $MT_PORT -l $MT_LOGIN $MT_HOST /import abuseidb.rsc
