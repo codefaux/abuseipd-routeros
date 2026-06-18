@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+MT_HOST=your_hostname_here
+MT_PORT=22
+MT_LOGIN=username_here
 SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/heads/main/abuseipdb-s100-14d.ipv4"
 UNPROCESSED_LIST=/tmp/abuseipdb.txt
 OUTPUT_LIST=/tmp/abuseipdb.rsc
@@ -23,7 +26,7 @@ do
 
   [[ -z $ip ]] && continue
 echo "add list=abuseipdb address=$ip timeout=2d" >> $OUTPUT_LIST
-done < "$PLIK"
+done < "$UNPROCESSED_LIST"
 
 scp -i $ROUTEROS_SSH_KEYFILE -P $MT_PORT $OUTPUT_LIST $MT_LOGIN@$MT_HOST:/abuseipdb.rsc
 ssh -i $ROUTEROS_SSH_KEYFILE -o StrictHostKeyChecking=no -p $MT_PORT -l $MT_LOGIN $MT_HOST /import abuseidb.rsc
