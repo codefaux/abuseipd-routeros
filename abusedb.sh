@@ -8,7 +8,7 @@ SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/
 rm -rf $PLIK
 rm -rf $MT_PLIK
 
-curl -G https://api.abuseipdb.com/api/v2/blacklist -d confidenceMinimum=90 -H "Key:$YOUR_API_KEY" -H "Accept: text/plain" -o $PLIK
+curl -fJLs $SOURCE_URL -o $PLIK
 
 echo "/ip firewall address-list" >> $MT_PLIK
 echo "/ip firewall address-list remove [/ip firewall address-list find list=abuseidb]" >> $MT_PLIK
