@@ -36,4 +36,4 @@ echo "add list=abuseipdb address=$ip timeout=2d" >> $OUTPUT_LIST
 done < "$UNPROCESSED_LIST"
 
 scp -i $ROUTEROS_SSH_KEYFILE -P $MT_PORT $OUTPUT_LIST $MT_LOGIN@$MT_HOST:/abuseipdb.rsc
-ssh -i $ROUTEROS_SSH_KEYFILE -o StrictHostKeyChecking=no -p $MT_PORT -l $MT_LOGIN $MT_HOST /import abuseidb.rsc
+ssh -i $ROUTEROS_SSH_KEYFILE -o StrictHostKeyChecking=no -p $MT_PORT -l $MT_LOGIN $MT_HOST /import abuseipdb.rsc
