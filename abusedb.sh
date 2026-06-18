@@ -4,11 +4,18 @@ set -euo pipefail
 MT_HOST=your_hostname_here
 MT_PORT=22
 MT_LOGIN=username_here
+# https://github.com/borestad/blocklist-abuseipdb
+# ~100% confidence single-IP list of reported offenders
+#[1d,3d,7d,14d,30d,60d,90d,120d,180d,365d,all]
 SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/heads/main/abuseipdb-s100-14d.ipv4"
+# ~99% condfidence subnet list of reported offenders; /24 subnets where 75% of traffic or more is bad
+#SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/heads/main/stats/hallofshame/subnets/abuseipdb-s99-hallofshame-14d-75percent.ipv4"
+#[1d,3d,7d,14d,30d,60d,90d,120d,180d,365d,all]
+#[1,5,10,15,20,25,50,75]percent
+
 UNPROCESSED_LIST=/tmp/abuseipdb.txt
 OUTPUT_LIST=/tmp/abuseipdb.rsc
 ROUTEROS_SSH_KEYFILE=/path/to/ssh/id_rsa
-# https://github.com/borestad/blocklist-abuseipdb - [1d,3d,7d,14d,30d,60d,90d,120d,180d,365d,all]
 
 rm -rf $UNPROCESSED_LIST
 rm -rf $OUTPUT_LIST
