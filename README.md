@@ -4,16 +4,19 @@ A minimum-viable script to import an AbuseIPDB mirror list to a RouterOS target,
 ## Usage
 
 Add script to cron and run periodically. Modify period of database file as needed.
+
 ```
 SOURCE_URL="https://raw.githubusercontent.com/borestad/blocklist-abuseipdb/refs/heads/main/abuseipdb-s100-14d.ipv4"
 # https://github.com/borestad/blocklist-abuseipdb - [1d,3d,7d,14d,30d,60d,90d,120d,180d,365d,all]
 ```
 
 Optional: Adjust the firewall list entry timeout.
+
 `echo "add list=abuseidb address=$ip timeout=2d" >> $MT_PLIK`
 
 
 Set up firewall rules as appropriate using this list. Typical uses are 
+
 `/ip/firewall/filter/add action=drop chain=input in-interface=WAN1 src-add-ress-list=abuseipdb`
 
 `/ip/firewall/raw/add action=drop chain=prerouting src-address-list=abuseidb`
